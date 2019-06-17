@@ -1,0 +1,3 @@
+rootProject.name = 'testRnRepo'
+
+include ':app'
