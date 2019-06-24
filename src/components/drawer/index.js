@@ -1,7 +1,7 @@
 import React from 'react';
 import View from 'src/components/view';
 import Text from 'src/components/text';
-import { colors, fontSize } from 'src/styles';
+import { colors, fontSize, spacing } from 'src/styles';
 
 const DrawerMenu = () => (
   <View
@@ -10,12 +10,16 @@ const DrawerMenu = () => (
     flex={1}
     testID="drawer-menu"
   >
-    <Text fontSize={fontSize.fs4} color={colors.textPrimary}>
-      Option number one
-    </Text>
-    <Text fontSize={fontSize.fs4} color={colors.textPrimary}>
-      Option number two
-    </Text>
+    <View
+      paddingTop={spacing.s8}
+    >
+      <Text fontSize={fontSize.fs4} color={colors.textPrimary}>
+        Option number one
+      </Text>
+      <Text fontSize={fontSize.fs4} color={colors.textPrimary}>
+        Option number two
+      </Text>
+    </View>
   </View>
 )
 
