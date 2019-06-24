@@ -8,4 +8,7 @@ export const initialState = {
   results: {
     points: 0,
   },
+  hiddenMenu: {
+    isShown: false,
+  },
 }

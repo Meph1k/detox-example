@@ -8,16 +8,31 @@ import { getHints, getAnswers } from 'src/store/selectors/questions';
 import CountryTile from 'src/components/country-tile';
 import { addPoint, removePoint } from 'src/store/action-creators/results';
 import get from 'lodash/get'
-import { removeQuestion } from 'src/store/action-creators/questions';
+import { removeQuestion, resetQuestions } from 'src/store/action-creators/questions';
 
-const Question = ({ currentQuestion , answers, addPoint, removeQuestion, points, removePoint }) => {
+const Question = ({ currentQuestion , answers, addPoint, removeQuestion, points, removePoint, resetQuestions }) => {
   const [lastAnswerCorrect, setLastAnswerCorrect] = useState(undefined)
+  const [questionNumber, setQuestionNumber] = useState(0)
+
+  useEffect(() => {
+    resetQuestions();
+  }, [])
 
   useEffect(() => {
     if ((!currentQuestion) && Actions.currentScene !== 'results') {
-      Actions.push('results')
+      Actions.push('results');
     }
   })
+
+  useEffect(() => {
+    const lastAnswerTimeout = setTimeout(() => {
+      setLastAnswerCorrect(undefined)
+    }, 2000)
+
+    return () => {
+      clearTimeout(lastAnswerTimeout)
+    }
+  }, [lastAnswerCorrect])
 
   const handleClickAnswer = answer => {
     return () => {
@@ -25,13 +40,11 @@ const Question = ({ currentQuestion , answers, addPoint, removeQuestion, points,
         setLastAnswerCorrect(true)
         addPoint()
         removeQuestion(answer)
+        setQuestionNumber(questionNumber + 1)
       } else {
         setLastAnswerCorrect(false)
         removePoint()
       }
-      setTimeout(() => {
-        setLastAnswerCorrect(undefined)
-      }, 2000)
     }
   }
 
@@ -75,6 +88,7 @@ const Question = ({ currentQuestion , answers, addPoint, removeQuestion, points,
           style={{
             padding: spacing.s4,
           }}
+          testID={`question-number-${questionNumber}`}
         >
           {currentQuestion.hint}
         </Text>
@@ -102,6 +116,7 @@ const mapDispatchToProps = {
   addPoint,
   removePoint,
   removeQuestion,
+  resetQuestions,
 }
 
 const mapStateToProps = state => {

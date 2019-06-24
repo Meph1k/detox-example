@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Scene, Stack } from 'react-native-router-flux';
+import { Router, Scene, Stack, Lightbox, Drawer } from 'react-native-router-flux';
 import DifficultyLevel from 'src/screens/difficulty-level';
 import Question from 'src/screens/question';
 import Results from 'src/screens/results';
@@ -7,19 +7,51 @@ import ChoiceOfGame from 'src/screens/choice-of-game';
 import Capitals from 'src/screens/capitals';
 import { Provider } from 'react-redux';
 import { store } from 'src/store';
+import Back, { ConnectedBackToChoice as BackToChoice } from 'src/components/back';
+import HiddenDevMenu from 'src/screens/hidden-dev-menu';
+import DrawerMenu from 'src/components/drawer';
 
 class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
         <Router>
-          <Stack key="root">
-            <Scene key="initial" component={DifficultyLevel} title="Difficulty level" />
-            <Scene key="choice-of-game" component={ChoiceOfGame} title="Choice of game" />
-            <Scene key="question" component={Question} title="Question" />
-            <Scene key="capitals" component={Capitals} title="Capitals" />
-            <Scene key="results" component={Results} title="Results" />
-          </Stack>
+          <Lightbox>
+            <Stack key="root">
+              <Drawer
+                key="drawer"
+                drawer
+                contentComponent={DrawerMenu}
+                drawerWidth={250}
+                hideNavBar
+              >
+                <Scene key="initial" component={DifficultyLevel} title="Difficulty level" />
+                <Scene key="choice-of-game" component={ChoiceOfGame} title="Choice of game" />
+                <Scene
+                  key="question"
+                  component={Question}
+                  title="Question"
+                  renderBackButton={Back}
+                />
+                <Scene
+                  key="capitals"
+                  component={Capitals}
+                  title="Capitals"
+                  renderBackButton={Back}
+                />
+                <Scene
+                  key="results"
+                  component={Results}
+                  title="Results"
+                  renderBackButton={() => <BackToChoice />}
+                />
+              </Drawer>
+            </Stack>
+            <Scene
+              key="hidden-dev-menu"
+              component={HiddenDevMenu}
+            />
+          </Lightbox>
         </Router>
       </Provider>
     );

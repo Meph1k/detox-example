@@ -8,18 +8,32 @@ import { connect } from 'react-redux';
 import { getAnswersForCapitals } from 'src/store/selectors/questions';
 import { addPoint, removePoint } from 'src/store/action-creators/results';
 import get from 'lodash/get'
-import { removeQuestion } from 'src/store/action-creators/questions';
+import { removeQuestion, resetQuestions } from 'src/store/action-creators/questions';
 import Button from 'src/components/button';
 
-const Question = ({ currentCountry , answers, addPoint, removeQuestion, points, removePoint }) => {
+const Question = ({ currentCountry , answers, addPoint, removeQuestion, points, removePoint, resetQuestions }) => {
   const [lastAnswerCorrect, setLastAnswerCorrect] = useState(undefined)
   const [country, setCountry] = useState('')
+
+  useEffect(() => {
+    resetQuestions();
+  }, [])
 
   useEffect(() => {
     if ((!currentCountry) && Actions.currentScene !== 'results') {
       Actions.push('results')
     }
   })
+
+  useEffect(() => {
+    const lastAnswerTimeout = setTimeout(() => {
+      setLastAnswerCorrect(undefined)
+    }, 2000)
+
+    return () => {
+      clearTimeout(lastAnswerTimeout)
+    }
+  }, [lastAnswerCorrect])
 
   const handleClickAnswer = () => {
     if (country === currentCountry.capital) {
@@ -31,9 +45,6 @@ const Question = ({ currentCountry , answers, addPoint, removeQuestion, points, 
       removePoint()
     }
     removeQuestion(currentCountry.name)
-    setTimeout(() => {
-      setLastAnswerCorrect(undefined)
-    }, 2000)
   }
 
   let backgroundColor = 'transparent';
@@ -79,6 +90,7 @@ const Question = ({ currentCountry , answers, addPoint, removeQuestion, points, 
             style={{
               padding: spacing.s4,
             }}
+            testID="current-country-name"
           >
             {currentCountry.name}
           </Text>
@@ -108,6 +120,7 @@ const mapDispatchToProps = {
   addPoint,
   removePoint,
   removeQuestion,
+  resetQuestions,
 }
 
 const mapStateToProps = state => {
