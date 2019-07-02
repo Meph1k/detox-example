@@ -21,7 +21,7 @@ const Question = ({ currentCountry , answers, addPoint, removeQuestion, points, 
 
   useEffect(() => {
     if ((!currentCountry) && Actions.currentScene !== 'results') {
-      Actions.push('results')
+      Actions.push('_results')
     }
   })
 

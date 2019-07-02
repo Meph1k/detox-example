@@ -20,7 +20,7 @@ const Question = ({ currentQuestion , answers, addPoint, removeQuestion, points,
 
   useEffect(() => {
     if ((!currentQuestion) && Actions.currentScene !== 'results') {
-      Actions.push('results');
+      Actions.push('_results');
     }
   })
 
