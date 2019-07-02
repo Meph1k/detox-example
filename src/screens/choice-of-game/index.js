@@ -25,7 +25,7 @@ const ChoiceOfGame = () => {
       >
         <Button
           label="Countries"
-          onPress={() => Actions.push('_question')}
+          onPress={() => Actions.push('question')}
           customStyles={{
             container: {
               backgroundColor: colors.malachite,
@@ -35,7 +35,7 @@ const ChoiceOfGame = () => {
         />
         <Button
           label="Capitals"
-          onPress={() => Actions.push('_capitals')}
+          onPress={() => Actions.push('capitals')}
           marginVertical={spacing.s4}
           testID="capitals-button"
         />

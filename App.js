@@ -26,26 +26,26 @@ class App extends React.Component {
                 hideNavBar
               >
                 <Scene key="initial" component={DifficultyLevel} title="Difficulty level" />
-                <Scene key="choice-of-game" component={ChoiceOfGame} title="Choice of game" />
-                <Scene
-                  key="question"
-                  component={Question}
-                  title="Question"
-                  renderBackButton={Back}
-                />
-                <Scene
-                  key="capitals"
-                  component={Capitals}
-                  title="Capitals"
-                  renderBackButton={Back}
-                />
-                <Scene
-                  key="results"
-                  component={Results}
-                  title="Results"
-                  renderBackButton={() => <BackToChoice />}
-                />
               </Drawer>
+              <Scene key="choice-of-game" component={ChoiceOfGame} title="Choice of game" />
+              <Scene
+                key="question"
+                component={Question}
+                title="Question"
+                renderBackButton={Back}
+              />
+              <Scene
+                key="capitals"
+                component={Capitals}
+                title="Capitals"
+                renderBackButton={Back}
+              />
+              <Scene
+                key="results"
+                component={Results}
+                title="Results"
+                renderBackButton={() => <BackToChoice />}
+              />
             </Stack>
             <Scene
               key="hidden-dev-menu"

@@ -16,7 +16,7 @@ const DifficultyLevel = ({ setDifficultyLevel, resetScore }) => {
   const moveToQuestions = difficultyLevel => {
     setDifficultyLevel(difficultyLevel)
     resetScore()
-    Actions.push('_choice-of-game')
+    Actions.push('choice-of-game')
   }
 
   const handleLongPress = () => {
@@ -27,7 +27,7 @@ const DifficultyLevel = ({ setDifficultyLevel, resetScore }) => {
     setPressCount(pressCount + 1)
 
     if (pressCount >= 3) {
-      Actions.push('_hidden-dev-menu')
+      Actions.push('hidden-dev-menu')
     }
   }
 
